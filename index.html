@@ -12,6 +12,8 @@
 :root[data-cp=pink]{color-scheme:light;--bg:#fff4f8;--ink:#3a0f24;--mute:#845a6e;--line:#f5d3e1;--card:#fde7f0;--field:#e0457b;--fink:#ffffff;--mint:#ffc2d8;--acc:#d63a71;--warn:#b42318;--seg:#3a0f24;--seg2:#845a6e}
 :root[data-cp=purple]{color-scheme:light;--bg:#f6f3fd;--ink:#1e1238;--mute:#625a7a;--line:#e0d8f5;--card:#eee8fb;--field:#6d3fd6;--fink:#ffffff;--mint:#d3c2ff;--acc:#6d3fd6;--warn:#b42318;--seg:#1e1238;--seg2:#625a7a}
 :root[data-cp=orange]{color-scheme:light;--bg:#fff7ef;--ink:#2b1607;--mute:#7a5a42;--line:#f2dcc6;--card:#fdebd8;--field:#e46a12;--fink:#ffffff;--mint:#ffd0a3;--acc:#d35f0c;--warn:#b42318;--seg:#2b1607;--seg2:#7a5a42}
+.rowacts{display:flex;flex-direction:column;align-items:stretch;gap:6px}.rowacts .sm{min-height:36px}
+@media(max-width:600px){.rowacts{flex-direction:row}}
 .abtn{display:inline-flex;gap:6px;flex-wrap:wrap;vertical-align:middle}.unal{color:var(--warn)}
 .chkrow{display:grid!important;grid-template-columns:auto 1fr;gap:2px 10px!important;align-items:center}.chkrow input{width:20px;height:20px;min-height:0}.chkrow .sub{grid-column:2;font-weight:400}
 td small{display:block}
@@ -398,10 +400,10 @@ function render(){applyTheme();
   $('#ct').innerHTML=act.length?`<table class="stack"><thead><tr><th>Commitment</th><th>Due</th><th class="r">Amount</th><th class="r">Allocate</th><th>From</th><th>Status</th><th></th></tr></thead><tbody>${act.map(c=>{const a=al(c),pd=!!m.paid[c.id],amt=+a.amt||0;
     const st=pd?'<span class="chip paid">Paid</span>':amt>=c.amount?'<span class="chip ok">Ready</span>':amt>0?`<span class="chip short">Short ${money(c.amount-amt)}</span>`:'<span class="chip">Not allocated</span>';
     return `<tr><td><strong>${esc(c.name)}</strong><small>${esc(c.cat)}${c.end?' · until '+esc(mlabel(c.end)):''}</small></td><td>${ord(c.due)}</td><td class="r">${money(c.amount)}</td>
-    <td class="r"><input type="number" min="0" step="0.01" inputmode="decimal" data-alloc="${esc(c.id)}" value="${amt||''}" placeholder="0.00" aria-label="Allocate to ${esc(c.name)}"> <span class="abtn"><button type="button" class="sm" data-full="${esc(c.id)}" ${amt>=c.amount?'hidden':''}>Full</button>${amt>0||pd?`<button type="button" class="sm unal" data-unal="${esc(c.id)}" title="Remove this month's allocation (keeps the commitment)">Unallocate</button>`:''}</span>${c.noAuto?'<small>Auto-allocate off</small>':''}</td>
+    <td class="r"><input type="number" min="0" step="0.01" inputmode="decimal" data-alloc="${esc(c.id)}" value="${amt||''}" placeholder="0.00" aria-label="Allocate to ${esc(c.name)}"> <button type="button" class="sm fullb" data-full="${esc(c.id)}" ${amt>=c.amount?'style="visibility:hidden" tabindex="-1" aria-hidden="true"':''}>Full</button>${c.noAuto?'<small>Auto-allocate off</small>':''}</td>
     <td>${state.incomes.length?`<select data-src="${esc(c.id)}" aria-label="Income source for ${esc(c.name)}">${opts(a.src)}</select>`:'—'}</td>
     <td><label class="chk"><input type="checkbox" data-paid="${esc(c.id)}" ${pd?'checked':''}>${st}</label></td>
-    <td><button type="button" class="sm" data-edit="${esc(c.id)}">Edit</button></td></tr>`}).join('')}</tbody></table>`
+    <td><div class="rowacts"><button type="button" class="sm" data-edit="${esc(c.id)}">Edit</button>${amt>0||pd?`<button type="button" class="sm unal" data-unal="${esc(c.id)}" title="Remove this month's allocation (keeps the commitment)">Unallocate</button>`:''}</div></td></tr>`}).join('')}</tbody></table>`
     :`<div class="empty">No commitments for ${esc(mlabel(month))} yet. Add your rent, loans, bills and savings goals.</div>`;
   const ended=state.commits.length-act.length;$('#hid').textContent=ended?`${ended} commitment${ended>1?'s':''} ended before this month and ${ended>1?'are':'is'} hidden.`:'';
   $('#il').innerHTML=state.incomes.length?state.incomes.map(i=>`<li><span>${esc(i.name)}</span><span class="r">${money(i.amount)}</span><button type="button" class="sm" data-iedit="${esc(i.id)}">Edit</button></li>`).join(''):'<li class="empty" style="display:block">No income yet.</li>';
