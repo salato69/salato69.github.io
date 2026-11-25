@@ -21,6 +21,9 @@ td small{display:block}
 .tgl .tr::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .15s}
 .tgl input:checked+.tr{background:var(--acc)}.tgl input:checked+.tr::after{transform:translateX(16px)}
 .tgl input:focus-visible+.tr{outline:3px solid var(--acc);outline-offset:2px}
+@media(prefers-color-scheme:dark){:root:not([data-cp]){--c1:#338ced;--c2:#e76624;--c3:#00a888;--c4:#d28e05;--c5:#e24d8b;--c6:#0aac23;--c7:#9887ef;--c8:#eb6263;--cother:#7d838c;}}
+:root[data-cp=black],:root[data-cp=navy]{--c1:#338ced;--c2:#e76624;--c3:#00a888;--c4:#d28e05;--c5:#e24d8b;--c6:#0aac23;--c7:#9887ef;--c8:#eb6263;--cother:#7d838c;}
+.calt{margin-bottom:8px;font-weight:600}.calw[hidden]{display:none}
 .tsw{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
 .tsw button{min-height:84px;display:grid;gap:6px;justify-items:start;align-content:end;padding:10px;border-radius:14px;border:2px solid transparent;text-align:left;font-size:14px}
 .tsw button.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--bg) inset}
@@ -43,7 +46,7 @@ IDEA: a payslip carved into envelopes, every ringgit given a job
 PICTURE: the month's income as one long bar split into commitments, mint for what is still free
 COLOUR and TYPE: black and white plus one mint field; Space Grotesk for figures, Inter for text
 LAYOUT: mint half holds the left-to-allocate number, white half holds the bar; commitments table, then income */
-:root{color-scheme:light dark;--acc:#1a9e5c;--onacc:#fff;--bg:light-dark(#fff,#0a0a0a);--ink:light-dark(#0a0a0a,#f2f2f2);--mute:light-dark(#5a5a5a,#a0a0a0);--line:light-dark(#e3e3e3,#262626);--mint:#b8f5d0;--field:light-dark(#b8f5d0,#0e1a13);--fink:light-dark(#0a0a0a,#b8f5d0);--seg:light-dark(#0a0a0a,#ececec);--seg2:light-dark(#555,#8f8f8f);--warn:light-dark(#b42318,#ff8f80);--card:light-dark(#f7f7f7,#141414)}
+:root{color-scheme:light dark;--acc:#1a9e5c;--onacc:#fff;--c1:#257de0;--c2:#f47230;--c3:#00b894;--c4:#f2a600;--c5:#ee7fac;--c6:#008a17;--c7:#6a4ce2;--c8:#ec4647;--cother:#8a8f98;--bg:light-dark(#fff,#0a0a0a);--ink:light-dark(#0a0a0a,#f2f2f2);--mute:light-dark(#5a5a5a,#a0a0a0);--line:light-dark(#e3e3e3,#262626);--mint:#b8f5d0;--field:light-dark(#b8f5d0,#0e1a13);--fink:light-dark(#0a0a0a,#b8f5d0);--seg:light-dark(#0a0a0a,#ececec);--seg2:light-dark(#555,#8f8f8f);--warn:light-dark(#b42318,#ff8f80);--card:light-dark(#f7f7f7,#141414)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
@@ -74,12 +77,16 @@ input,select{min-height:44px;border:1px solid var(--line);border-radius:10px;pad
 .alert{margin-top:16px;font-size:14px;font-weight:600;color:var(--warn)}
 .chart{padding:clamp(24px,4vw,48px) max(5vw,16px)}
 .bar{display:flex;gap:2px;height:64px;margin:14px 0 10px;border-radius:8px;overflow:hidden;background:var(--line)}
-.bar i{display:block;height:100%;background:var(--seg)}.bar i:nth-child(even){background:var(--seg2)}
-.bar i.free{background:var(--mint)}
+.bar{background:transparent!important}
+.bar i{display:block;height:100%;min-width:3px}
+.bar i.free{background:repeating-linear-gradient(135deg,var(--line) 0 6px,transparent 6px 12px);box-shadow:inset 0 0 0 1.5px var(--line)}
 .scale{display:flex;justify-content:space-between;font-size:13px;color:var(--mute)}
-.legend{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px 16px;font-size:14px}
-.legend li{display:flex;gap:8px;align-items:center}.legend b{margin-left:auto;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
-.sw{width:12px;height:12px;border-radius:3px;flex:none;background:var(--seg)}.sw.b{background:var(--seg2)}.sw.m{background:var(--mint)}
+.legend{list-style:none;padding:0;margin:18px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:0 28px;font-size:14px}
+.legend li{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid var(--line)}
+.legend .ln{line-height:1.35}.legend b{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right}
+.legend .lfree .ln{color:var(--mute)}
+.sw{width:14px;height:14px;border-radius:4px;flex:none;margin-top:2px}.sw.free{background:repeating-linear-gradient(135deg,var(--mute) 0 2px,transparent 2px 5px);box-shadow:inset 0 0 0 1.5px var(--mute)}
+.srch{font-weight:600;font-size:14px;margin-bottom:-4px}.srest{margin-top:4px}
 .src{margin-top:22px;display:grid;gap:12px}
 .meter{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.meter i{display:block;height:100%;background:var(--ink)}.meter.over i{background:var(--warn)}
 .srow{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:4px}.srow b{font-weight:600;white-space:nowrap}
@@ -211,7 +218,7 @@ pre,.scroll{overflow-x:auto}
 <main class="band"><div class="wrap">
 <div id="bn"></div>
 <section class="sp" aria-labelledby="sph"><div class="top"><h2 id="sph">Daily spending</h2><span class="sub" id="spsum"></span></div>
-<div class="spg"><div><div class="cal" id="cal"></div><p class="note"><span class="lg-ok"></span> within the daily limit <span class="lg-over"></span> over the limit</p></div>
+<div class="spg"><div><button type="button" class="mini calt" data-calmin aria-expanded="true"><span class="chev" aria-hidden="true"></span><span>Calendar</span><span class="sub mtxt">Hide</span></button><div class="calw"><div class="cal" id="cal"></div><p class="note"><span class="lg-ok"></span> within the daily limit <span class="lg-over"></span> over the limit</p></div></div>
 <div class="spd"><form id="spf" class="spform" novalidate><label>Date<input type="date" name="d" id="spdate"></label><label>Spent (RM)<input type="number" name="amt" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label><label class="grow">What for (optional)<input name="note" placeholder="e.g. Lunch, petrol"></label><button class="pri" type="submit">Add</button></form>
 <div id="spday"></div></div></div></section>
 <div class="cols">
@@ -238,8 +245,8 @@ pre,.scroll{overflow-x:auto}
 <button class="pri addb" type="submit">Add spending</button>
 </form>
 <div id="splist"></div>
-<div class="top mt"><h2>This month</h2></div><p class="sub" id="spsum" style="margin:-6px 0 12px"></p>
-<div class="cal" id="cal"></div><p class="note"><span class="lg-ok"></span> within the daily limit <span class="lg-over"></span> over the limit</p>
+<div class="top mt"><button type="button" class="mini" data-calmin aria-expanded="true"><span class="chev" aria-hidden="true"></span><h2>This month</h2><span class="sub mtxt">Hide</span></button></div><p class="sub" id="spsum" style="margin:-6px 0 12px"></p>
+<div class="calw"><div class="cal" id="cal"></div><p class="note"><span class="lg-ok"></span> within the daily limit <span class="lg-over"></span> over the limit</p></div>
 </div></div></div>
 <div class="view" id="v-plan" hidden><section class="hero" aria-label="This month's allocation">
 <div class="field"><div class="lab" id="hl">Left to allocate</div><div class="big num" id="left">RM 0.00</div><div class="daily" id="daily"></div><div class="kv" id="kv"></div><div class="alert" id="al"></div></div>
@@ -363,7 +370,7 @@ function render(){applyTheme();
   const al=c=>m.a[c.id]||{amt:0,src:state.incomes[0]?.id||''};
   const tab=state.tabung;
   const alloc=act.reduce((s,c)=>s+(+al(c).amt||0),0),need=act.reduce((s,c)=>s+(+c.amount||0),0);
-  const items=act.map(c=>({name:c.name,...al(c)}));
+  const items=act.map(c=>({name:c.name,slot:state.commits.indexOf(c),...al(c)}));
   const left=r2(inc-alloc),paidN=act.filter(c=>m.paid[c.id]).length;
   $('#hl').textContent=(left<0?'Over-allocated':'Left to allocate')+' · '+mlabel(month);
   {const [yy,mm]=month.split('-').map(Number),days=new Date(yy,mm,0).getDate(),now=new Date(),cur=month===ym(now),dl=days-now.getDate()+1;
@@ -376,11 +383,12 @@ function render(){applyTheme();
   $('#kv').innerHTML=[['Income',inc],['Commitments due',need],['Allocated',alloc],['Still to cover',act.reduce((s,c)=>s+(m.paid[c.id]?0:Math.max(0,c.amount-(+al(c).amt||0))),0)]].map(([k,v])=>`<span>${k}</span><span>${money(v)}</span>`).join('')+`<span>Paid</span><span>${paidN} of ${act.length}</span>`;
   $('#al').textContent=need>inc&&inc>0?`Commitments are ${money(need-inc)} more than your income this month.`:(!inc?'Add your income to start allocating.':'');
   const base=Math.max(inc,alloc)||1,segs=items.filter(x=>+x.amt>0);
-  $('#bar').innerHTML=segs.map(x=>`<i style="flex-grow:${x.amt/base}" title="${esc(x.name)}: ${money(x.amt)}"></i>`).join('')+(left>0?`<i class="free" style="flex-grow:${left/base}" title="Unallocated: ${money(left)}"></i>`:'');
+  const col=x=>x.slot<8?`var(--c${x.slot+1})`:'var(--cother)';
+  $('#bar').innerHTML=segs.map(x=>`<i style="flex-grow:${x.amt/base};background:${col(x)}" title="${esc(x.name)}: ${money(x.amt)}"></i>`).join('')+(left>0?`<i class="free" style="flex-grow:${left/base}" title="Unallocated: ${money(left)}"></i>`:'');
   $('#sc').textContent=money(base===1&&!inc?0:base);
-  $('#lg').innerHTML=segs.map((x,i)=>`<li><span class="sw ${i%2?'b':''}"></span>${esc(x.name)}<b>${money(x.amt)}</b></li>`).join('')+(left>0?`<li><span class="sw m"></span>Unallocated<b>${money(left)}</b></li>`:'');
-  $('#src').innerHTML=state.incomes.map(i=>{const u=items.filter(x=>x.src===i.id).reduce((s,x)=>s+(+x.amt||0),0),p=i.amount?Math.min(100,u/i.amount*100):(u?100:0);
-    return `<div><div class="srow"><span>${esc(i.name)}</span><b>${money(u)} of ${money(i.amount)}${u>i.amount?' · over':''}</b></div><div class="meter ${u>i.amount?'over':''}"><i style="width:${p}%"></i></div></div>`}).join('');
+  $('#lg').innerHTML=segs.map(x=>`<li title="${esc(x.name)}"><span class="sw" style="background:${col(x)}"></span><span class="ln">${esc(x.name)}</span><b>${money(x.amt)}</b></li>`).join('')+(left>0?`<li class="lfree"><span class="sw free"></span><span class="ln">Unallocated</span><b>${money(left)}</b></li>`:'');
+  $('#src').innerHTML=(state.incomes.length?'<div class="srch">Income allocated by source</div>':'')+state.incomes.map(i=>{const u=items.filter(x=>x.src===i.id).reduce((s,x)=>s+(+x.amt||0),0),p=i.amount?Math.min(100,u/i.amount*100):(u?100:0),rest=r2(i.amount-u);
+    return `<div><div class="srow"><span>${esc(i.name)}</span><b>${money(u)} allocated of ${money(i.amount)}</b></div><div class="meter ${u>i.amount?'over':''}"><i style="width:${p}%"></i></div><div class="sub srest">${rest>=0?`${money(rest)} still free`:`Over-allocated by ${money(-rest)}`}</div></div>`}).join('');
   $('#bn').innerHTML=state.sample?`<div class="banner"><span>You're looking at sample figures. Edit them, or clear them to start with your own.</span><span class="acts"><button class="sm" id="keep">Keep and edit</button><button class="sm pri" id="clr">Clear sample</button></span></div>`:'';
   const opts=sel=>state.incomes.map(i=>`<option value="${esc(i.id)}"${i.id===sel?' selected':''}>${esc(i.name)}</option>`).join('');
   const allPaid=act.length&&act.every(c=>m.paid[c.id]);
@@ -444,6 +452,15 @@ function route(){const v=VIEWS[location.hash.slice(1)]?location.hash.slice(1):'h
 if(APP)document.querySelector('.tabbar').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;if(location.hash!=='#'+b.dataset.v)location.hash=b.dataset.v;else route();try{window.scrollTo(0,0)}catch(e){}});
 if(APP){window.addEventListener('hashchange',route);route()}
 ($('#splist')||$('#spday')).addEventListener('click',e=>{const b=e.target.closest('[data-sdel]');if(b)change(()=>{const l=state.spend[selDay]||[];state.spend[selDay]=l.filter(x=>x.id!==b.dataset.sdel);if(!state.spend[selDay].length)delete state.spend[selDay]})});
+let calMin=false;try{calMin=localStorage.getItem('cp-calmin')==='1'}catch(e){}
+function calUI(){const b=document.querySelector('[data-calmin]'),w=document.querySelector('.calw');if(!b||!w)return;w.hidden=calMin;b.classList.toggle('closed',calMin);b.setAttribute('aria-expanded',String(!calMin));b.querySelector('.mtxt').textContent=calMin?'Show':'Hide'}
+document.addEventListener('click',e=>{if(e.target.closest('[data-calmin]')){calMin=!calMin;try{localStorage.setItem('cp-calmin',calMin?'1':'0')}catch(er){}calUI()}});
+calUI();
+// Move to the new day automatically if the planner stays open past midnight.
+let dayNow=new Date().toLocaleDateString('en-CA');
+function dayCheck(){const d=new Date().toLocaleDateString('en-CA');if(d===dayNow)return;const was=dayNow;dayNow=d;
+  if(!selDay||selDay===was){selDay=d;if(month===was.slice(0,7))month=d.slice(0,7)}render()}
+setInterval(dayCheck,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)dayCheck()});
 $('#cmin').addEventListener('click',()=>{cMin=!cMin;try{localStorage.setItem('cp-cmin',cMin?'1':'0')}catch(e){}render()});
 $('#allp').addEventListener('click',()=>{const act=active();if(!act.length)return;const m0=getM(),all=act.every(c=>m0.paid[c.id]);
   change(()=>{const m=getM(month,true);for(const c of act){if(all)delete m.paid[c.id];else{m.paid[c.id]=true;const a=m.a[c.id];if(!(a&&+a.amt>0))m.a[c.id]={amt:c.amount,src:(a&&a.src)||state.incomes[0]?.id||''}}}})});
