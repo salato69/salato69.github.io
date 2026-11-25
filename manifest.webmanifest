@@ -1,6 +1,6 @@
 {
-  "name": "Planner",
-  "short_name": "Planner",
+  "name": "Cuty Planner",
+  "short_name": "Cuty Planner",
   "description": "Commitments, tabung and daily spending, synced to your Google account.",
   "start_url": "./#home",
   "scope": "./",

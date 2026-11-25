@@ -1,5 +1,5 @@
 // Lets the planner open without internet. Your data itself is cached by Firestore.
-const CACHE = 'planner-v1';
+const CACHE = 'planner-v2';
 const PRECACHE = ['./', 'index.html', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png'];
 const CDN = ['www.gstatic.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
 
